@@ -48,13 +48,8 @@ public class Matrix {
 
 
     //return true if this matrix is empty, false otherwise
-    private boolean isEmpty() {
-	for (int r=0;r<matrix.length;r++){
-	    for (int c=0;c<matrix.length;c++){
-		if (matrix[r][c]!=null){return false;}
-	    }
-	}
-	return true;
+    private boolean isEmpty(int r, int c) {
+	return matrix[r][c]==null;
     }
 
     //return true if this matrix is full, false otherwise
@@ -89,6 +84,24 @@ public class Matrix {
 	return "";
     }
 
+    public Object[] getRow(int r){
+	return matrix[r];
+    }
+
+    public Object[] setRow(int r,Object[] newRow){
+	Object[]temp=matrix[r];
+	matrix[r]=newRow;
+	return temp;
+    }
+
+    public Object[] setCol(int c,Object[] newCol){
+	Object[]temp=new Object[matrix.length];
+	for (int r=0;r<matrix.length;r++){
+	    temp[r]=matrix[r][c];
+	    matrix[r][c]=newCol[r];
+	}
+	return temp;
+    }
 
     //override inherited equals method
     //criteria for equality: matrices have identical dimensions,
@@ -101,6 +114,8 @@ public class Matrix {
 	}
 	return true;
     }
+
+
 
 
     //swap two columns of this matrix 
