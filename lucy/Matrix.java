@@ -143,21 +143,32 @@ public class Matrix {
 	return temp;
     }
 
+    public Object[] getCol(int c){
+	Object[] col = new Object[this.size()];
+	for (int r = 0; r < this.size(); r++){
+	    col[r] = this.get(r,c);
+	}
+	return col;
+    }
+
     //returns _________
-    public Object[] setCol(int c,Object[]newCOl){\
+    public Object[] setCol(int c,Object[]newCol){
 	//for (int r = 0; r < this.size(); r++){
 	//matrix[r][c] = newCOL[r][c];
 	//}
 	Object[] temp = matrix[c];
-	matrix[c] = newCOl;
+	matrix[c] = newCol;
 	return temp;
     }
     
     public void transpose(){
-	Object[][] newMatrix = new Object[this.size()];
+	Object[][] newMatrix = new Object[this.size()][this.size()];
+	//Matrix newMatrix = new Matrix(this.size());
 	for (int c = 0; c < this.size(); c++){
-	    Object[]temp 
+	    //((Matrix)newMatrix).setRow(c,this.getCol(c));
+	    newMatrix.setRow(c,this.getCol(c));
 	}
+	matrix = newMatrix;
     }
     
     //main method for testing
