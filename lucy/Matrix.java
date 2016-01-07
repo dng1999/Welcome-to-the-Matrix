@@ -1,8 +1,8 @@
 /*
-Lucy Tang
+Team Crash -- Lucy Tang, Dorothy Ng
 APCS1 pd5
-HW54--Red vs Blue
-2015-1-5
+HW55--Don't Think You Are. Know You Are
+2015-1-6
 */
 
 /*====================================
@@ -24,31 +24,31 @@ public class Matrix {
     //default constructor intializes a DEFAULT_SIZE*DEFAULT_SIZE matrix
     public Matrix() {
 	matrix = new Object[DEFAULT_SIZE][DEFAULT_SIZE];
-    }//n(1)
+    }//O(1)
 
     
     //constructor intializes an a*a matrix
     public Matrix( int a ) {
 	matrix = new Object[a][a];
-    }//n(1)
+    }//O(1)
 
 
     //return size of this matrix, where size is 1 dimension
     private int size() {
 	return matrix.length; //# of rows
-    }//n(1)
+    }//O(1)
 
 
     //return the item at the specified row & column   
     private Object get( int r, int c ) {
 	return matrix[r][c];
-    }//n(1)
+    }//O(1)
 
     
     //return true if this matrix is empty, false otherwise
     private boolean isEmpty( int r, int c ) {
 	return matrix[r][c] == null;
-    }//n(1)
+    }//O(1)
 
 
     //overwrite item at specified row and column with newVal
@@ -57,7 +57,7 @@ public class Matrix {
 	Object oldVal = matrix[r][c];
 	matrix[r][c] = newVal;
 	return oldVal;
-    }//n(1)
+    }//O(1)
 
 
     //return String representation of this matrix
@@ -72,7 +72,7 @@ public class Matrix {
 	}
 	return retStr;
     }
-    //(n^2)
+    //O(n^2)
 
     //override inherited equals method
     //criteria for equality: matrices have identical dimensions,
@@ -88,7 +88,7 @@ public class Matrix {
 	    return true;
 	}
 	return false;   
-    }//n(^2)
+    }//O(n^2)
 
 
     //swap two columns of this matrix 
@@ -101,7 +101,7 @@ public class Matrix {
 	    matrix[r][c1] = matrix[r][c2];
 	    matrix[r][c2] = c1Val;
 	}
-    }//(n)
+    }//O(n)
 
 
     //swap two rows of this matrix 
@@ -123,7 +123,7 @@ public class Matrix {
 	    }
 	}
 	return true;
-    }
+    }//O(n^2)
 
     public Object[] getRow(int r){
 	Object[] row = new Object[this.size()];
@@ -131,17 +131,20 @@ public class Matrix {
 	    row[c] = this.get(r,c);
 	}
 	return row;
-    }
+	//return matrix[r];
+    }//O(n)
 
-    //returns ________
     public Object[] setRow(int r,Object[]newRow){
-	//for (int c = 0; c < this.size(); c++){
-	//matrix[r][c] = newRow[r][c];
-	//}
+	for (int c = 0; c < this.size(); c++){
+	matrix[r][c] = newRow[c];
+	}
+	/*
 	Object[] temp = matrix[r];
 	matrix[r] = newRow;
 	return temp;
-    }
+	*/
+	return newRow;
+    }//O(n)
 
     public Object[] getCol(int c){
 	Object[] col = new Object[this.size()];
@@ -149,27 +152,32 @@ public class Matrix {
 	    col[r] = this.get(r,c);
 	}
 	return col;
-    }
+    }//O(n)
 
-    //returns _________
     public Object[] setCol(int c,Object[]newCol){
 	//for (int r = 0; r < this.size(); r++){
-	//matrix[r][c] = newCOL[r][c];
+	//matrix[r][c] = newCol[r][c];
 	//}
 	Object[] temp = matrix[c];
 	matrix[c] = newCol;
 	return temp;
-    }
+    }//O(1)
     
     public void transpose(){
 	Object[][] newMatrix = new Object[this.size()][this.size()];
 	//Matrix newMatrix = new Matrix(this.size());
-	for (int c = 0; c < this.size(); c++){
-	    //((Matrix)newMatrix).setRow(c,this.getCol(c));
-	    newMatrix.setRow(c,this.getCol(c));
-	}
-	matrix = newMatrix;
-    }
+	    for (int c = 0; c < this.size(); c++){
+		//((Matrix)newMatrix).setRow(c,this.getCol(c));
+		//newMatrix.setRow(c,this.getCol(c));
+		Object[] column = new Object[this.size()];
+		for (int r = 0; r < this.size(); r++){
+		    column[r] = matrix[r][c];
+		}
+		newMatrix[c] = column;
+	    }
+	    matrix = newMatrix;
+    }//O(n^2)
+
     
     //main method for testing
     public static void main( String[] args ) {
@@ -196,6 +204,23 @@ public class Matrix {
 	first.swapColumns(0,1);
 	System.out.println(first);
 	first.swapRows(0,1);
+	System.out.println(first);
+
+	System.out.println(first.isFull()); //false
+	/*
+	//System.out.println(first.getRow(0));
+	System.out.println(first.setRow(0,first.getCol(0)));
+	System.out.println(first);
+	//System.out.println(first.getRow(0));
+	System.out.println(first.setCol(0,first.getRow(0)));
+	System.out.println(first);
+	//System.out.println(first.getCol(0));
+	*/
+	first.set(1,0,6);
+	first.set(1,1,7);
+	first.set(0,1,8);
+	System.out.println(first);
+	first.transpose();
 	System.out.println(first);
 
     }
