@@ -178,6 +178,14 @@ public class Matrix {
 	    matrix = newMatrix;
     }//O(n^2)
 
+    public boolean contains(Object O){
+	for (int r = 0; r < this.size(); r++){
+	    for (int c = 0; c < this.size(); c++){
+		if (matrix[r][c] == O) return true;
+	    }
+	}
+	return false;
+    }
     
     //main method for testing
     public static void main( String[] args ) {
@@ -222,6 +230,7 @@ public class Matrix {
 	System.out.println(first);
 	first.transpose();
 	System.out.println(first);
+	System.out.println(first.contains(6)); //true
 
     }
 
